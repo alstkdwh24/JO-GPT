@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import CONFIG from '../config/config.js';
 
+// [초기 버전 기능] Google 계정 연결(Connect) 설정 모달.
+// 백엔드 연결 API(/connect/list, /connect/{provider})는 인증 서버 리팩터링 때 제거되어 현재 동작하지 않음.
 const MEMBER_SECURITY_URL = CONFIG.AI_MEMBERSECURITY;
 
 export default function SettingsModal({ onClose, user }) {

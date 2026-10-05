@@ -214,6 +214,7 @@ export default function ChatHome({user, isActive, selectedChatKey, onChatLoaded,
     };
 
 
+    // [초기 버전 API] POST /contents/chatRoom 은 제거됨. 현재 백엔드는 POST /contents/chatRoom/first (채팅방 생성 + 첫 답변)
     const firstSend = async (myContent) => {
         const res = await fetchWithRefresh(`${CONFIG.API_CONTENTS_URL}/contents/chatRoom`, {
             method: 'POST',

@@ -103,7 +103,7 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.ASYNC).permitAll()
                         .requestMatchers("/login/**", "/login/oauth2/**", "/", "/signUp", "/home/**", "/css/**",
                                 "/js/**", "/image/**", "/oauth2/**", "/joGpt/**", "/oauth2/authorization/**",
-                                "/favicon.ico", "/error", "/auth/**", "/connect/**") // ← /connect/** 추가!
+                                "/favicon.ico", "/error", "/auth/**", "/connect/**") // /connect/** : [초기 버전] Google 계정 연결(Connect) API용. 현재 컨트롤러는 제거됨
                         .permitAll()
                         .requestMatchers("/JO_GPT_PROGRAM/**", "/contents/**", "/gptApi/**").hasAuthority("ROLE_USER")
                         .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")

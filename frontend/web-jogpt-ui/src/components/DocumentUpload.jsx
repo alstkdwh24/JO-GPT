@@ -1,3 +1,6 @@
+// [초기 버전 기능] 문서 업로드(텍스트 입력·URL 크롤링) → 3줄 요약 → RAG 저장.
+// 백엔드 API(/contents/crawl, /contents/saveDocument)는 보안 점검(SSRF 등) 후 제거되어 현재 동작하지 않음.
+// 현재 RAG는 AI 답변을 사용자별로 요약 저장하는 방식이며, 이 컴포넌트는 어디서도 사용하지 않음.
 import { useState } from "react";
 import CONFIG from "../config/config";
 import { fetchWithRefresh } from "../config/tokenRefresh";

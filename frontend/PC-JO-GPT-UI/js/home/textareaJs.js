@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("fetchSendMessage 토큰:", token);
         showLoading();
         // 3. 채팅방 생성
+        // [초기 버전 API] POST /contents/chatRoom 은 제거됨. 현재 백엔드는 POST /contents/chatRoom/first (채팅방 생성 + 첫 답변)
         const response2 = await fetch(CONFIG.API_CONTENTS_URL + '/contents/chatRoom', {
             method: "POST",
             headers: {

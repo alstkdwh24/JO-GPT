@@ -543,6 +543,7 @@ export default function ChatHome({user, isActive, selectedChatKey, onChatLoaded,
                                         }}
                                     />
                                 )}
+                                {/* [초기 버전 기능] Google 계정 연동 버튼 — 백엔드 /connect/google API는 현재 제거됨 */}
                                 {msg.showGoogleConnect && (
                                     <button
                                         className="google-connect-btn"

@@ -166,6 +166,9 @@ function ConnectedAccountsSection() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
 
+    // [초기 버전 기능] Google 계정 연결(Connect): Gmail/Calendar 호출용 계정 연동 목록·연결·해제.
+    // 백엔드 연결 API(/connect/list, /connect/{provider}, DELETE /connect/{key})는 인증 서버 리팩터링 때 제거되어
+    // 현재는 호출해도 응답이 없음 (연동 목록은 빈 상태로 표시됨).
     const fetchAccounts = async () => {
         try {
             setLoading(true);

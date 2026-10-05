@@ -78,6 +78,7 @@ public class JoGptSecurityConfig {
                         // ✅ /alert/** 제거 → 인증 필요!
                         // /contents/** 는 채팅·LLM 호출이라 인증 필요. 받은 메시지를 되돌려주기만 하는 알림만 공개
                         .requestMatchers("/contents/notifications").permitAll()
+                        // /connect/** : [초기 버전] Google 계정 연결(Connect) API용 경로. 현재 컨트롤러는 제거됨
                         .requestMatchers("/auth/**", "/connect/**").permitAll()
 
                         .anyRequest().authenticated())

@@ -30,6 +30,7 @@ public class JwtDelegateFilter extends OncePerRequestFilter {
     private String memberSecurityUrl;
 
     // ✅ /connect/** 경로는 토큰 검증 건너뜀
+    //    ([초기 버전] Google 계정 연결(Connect) API용. 현재 컨트롤러는 제거됨)
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
