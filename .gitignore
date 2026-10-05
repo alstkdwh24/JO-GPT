@@ -112,3 +112,6 @@ Query.sql
 aqua-7b/
 spring-petclinic/
 local-modules.gradle
+
+# Gradle wrapper 설정은 clone 후 빌드에 필요하므로 추적
+!gradle/wrapper/gradle-wrapper.properties
