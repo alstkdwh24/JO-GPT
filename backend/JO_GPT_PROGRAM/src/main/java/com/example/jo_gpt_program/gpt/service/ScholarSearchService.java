@@ -159,11 +159,12 @@ public class ScholarSearchService {
     }
 
     // ------------------- 학술검색 + RAG 답변 -------------------
-    public String sendWithRagAndScholar(MyChatDTO dto, String model, String customPrompt) {
-        // 1단계 - 벡터 DB에서 유사 문서 검색
-        List<Document> docs = vectorStore.similaritySearch(
+    public String sendWithRagAndScholar(MyChatDTO dto, String model, String customPrompt, Long memberKey) {
+        // 1단계 - 벡터 DB에서 유사 문서 검색 (본인 문서만)
+        List<Document> docs = memberKey == null ? List.of() : vectorStore.similaritySearch(
                 SearchRequest.builder()
                         .query(dto.getMyChatContents())
+                        .filterExpression(RagService.memberFilter(memberKey))
                         .topK(3) // 유사한 문서 3개만
                         .similarityThreshold(0.9) // 90% 이상 유사하면 중복으로 판단
 

@@ -32,6 +32,9 @@ public class JoGptSecurityConfig {
     @Value("${spring.frontend.url:https://agentcloudllm.me}")
     private String frontendUrl;
 
+    @Value("${spring.cors.dev-origin:}")
+    private String devOrigin;
+
     private final JwtDelegateFilter jwtDelegateFilter;
 
     public JoGptSecurityConfig(JwtDelegateFilter jwtDelegateFilter) {
@@ -46,8 +49,7 @@ public class JoGptSecurityConfig {
                     memberSecurityUrl,
                     joGptProgramUrl,
                     frontendUrl,
-                    "http://localhost:5173",
-                    "http://agentcloudllm.me",
+                    devOrigin, // 로컬 개발 때만 spring.cors.dev-origin=http://localhost:5173 (운영은 비워 둠 → 어떤 Origin과도 불일치)
                     "https://agentcloudllm.me"));
             cors.setAllowedMethods(Collections.singletonList("*"));
             cors.setAllowedHeaders(Arrays.asList(
@@ -56,7 +58,7 @@ public class JoGptSecurityConfig {
                     "X-NCP-APIGW-API-KEY-ID", "X-NCP-APIGW-API-KEY",
                     "Last-Event-ID"));
             cors.setAllowCredentials(true);
-            cors.setExposedHeaders(Arrays.asList("Authorization", "Set-Cookie"));
+            cors.setExposedHeaders(Collections.emptyList()); // Authorization을 JS에 공개하지 않음 (Set-Cookie는 원래 JS가 못 읽음)
             cors.setMaxAge(3600L);
             return cors;
         };
@@ -74,7 +76,9 @@ public class JoGptSecurityConfig {
 
 
                         // ✅ /alert/** 제거 → 인증 필요!
-                        .requestMatchers("/contents/**", "/auth/**", "/connect/**").permitAll()
+                        // /contents/** 는 채팅·LLM 호출이라 인증 필요. 받은 메시지를 되돌려주기만 하는 알림만 공개
+                        .requestMatchers("/contents/notifications").permitAll()
+                        .requestMatchers("/auth/**", "/connect/**").permitAll()
 
                         .anyRequest().authenticated())
                 .exceptionHandling(ex -> ex

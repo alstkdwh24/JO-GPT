@@ -73,10 +73,12 @@ public class JwtDelegateFilter extends OncePerRequestFilter {
             conn.setReadTimeout(3000);
             int statusCode = conn.getResponseCode();
 
-            String setCookie = conn.getHeaderField("Set-Cookie");
-            if (setCookie != null) {
-                response.setHeader("Set-Cookie", setCookie);
-                log.debug("[JwtDelegateFilter] 새 쿠키 브라우저에 전달: {}", setCookie);
+            // refresh 회전 시 ACCESS·REFRESH 쿠키 2개가 오므로 전부 전달
+            // (getHeaderField는 마지막 1개만 줘서 새 refresh가 빠지면 다음 요청이 재사용 감지로 세션 폐기됨)
+            java.util.List<String> setCookies = conn.getHeaderFields().get("Set-Cookie");
+            if (setCookies != null) {
+                setCookies.forEach(c -> response.addHeader("Set-Cookie", c));
+                log.debug("[JwtDelegateFilter] 새 쿠키 {}개 브라우저에 전달", setCookies.size());
             }
             log.debug("[JwtDelegateFilter] 응답 코드={}", statusCode);
 

@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface GptChatRepository extends JpaRepository<GptChat, Long> {
-    List<GptChat> findByGptChatContents(String message);
-}
+public interface GptChatRepository extends JpaRepository<GptChat, Long> {}

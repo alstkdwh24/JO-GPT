@@ -5,6 +5,8 @@ import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.VectorStore;
+import org.springframework.ai.vectorstore.filter.Filter;
+import org.springframework.ai.vectorstore.filter.FilterExpressionBuilder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -27,8 +29,12 @@ public class RagService {
     }
 // 문서 저장 메서드
     
-    public void saveDocument(String context, String source, String category, Long id) {
-        log.info("123456789");
+    // memberKey: 문서 주인. 검색 때 본인 문서만 찾도록 metadata에 저장 (없으면 저장 안 함 — 주인 없는 문서는 아무도 못 찾게)
+    public void saveDocument(String context, String source, String category, Long id, Long memberKey) {
+        if (memberKey == null) {
+            log.warn("[RAG 저장 생략] memberKey 없음 entityId={}", id);
+            return;
+        }
         String summary = chatClient.prompt()
 
                 .user("다음 내용을 3줄로 요약해줘 검색에 잘 걸리도록 면사 키워드 등으로:\n\n" + context)
@@ -62,17 +68,35 @@ public class RagService {
     // -----------------------------------
 
 
-    public String findDocument(String query) {
-        if (query == null || query.isBlank()) return "";
+    // 본인(memberKey) 문서만 검색 — 다른 사용자의 대화 요약이 섞이지 않게
+    public String findDocument(String query, Long memberKey) {
+        if (query == null || query.isBlank() || memberKey == null) return "";
 
         List<Document> docs = vectorStore.similaritySearch(
-                SearchRequest.builder().query(query).topK(5).build());
+                SearchRequest.builder().query(query).topK(5)
+                        .filterExpression(memberFilter(memberKey)).build());
 
         if(docs.isEmpty()) return ""; // 결과가 없으면 만환
         log.debug("문서갯수: {}", docs.size());  // ← 이렇게 해야 해요!
         return docs.stream()
                 .map(Document::getText)
                 .collect(Collectors.joining("\n---\n"));
+    }
+
+    public static Filter.Expression memberFilter(Long memberKey) {
+        return new FilterExpressionBuilder().eq("memberKey", String.valueOf(memberKey)).build();
+    }
+
+    /* 채팅방 삭제 시 그 방의 AI 답변(entityId = GptChatKey)으로 저장한 벡터 문서도 삭제 */
+    public void deleteByEntityIds(List<Long> entityIds) {
+        if (entityIds == null || entityIds.isEmpty()) return;
+        try {
+            vectorStore.delete(new FilterExpressionBuilder()
+                    .in("entityId", entityIds.stream().map(String::valueOf).toArray())
+                    .build());
+        } catch (Exception e) {
+            log.error("[RAG 삭제 실패] entityIds={} 에러={}", entityIds, e.getMessage(), e);
+        }
     }
 
 }

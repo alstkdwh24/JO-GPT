@@ -120,7 +120,7 @@ public class GeminiService {
         }
         UserMessage message = this.userMessageGet(dto);
         String webResults = scholarSearchService.searchWithTavily(dto.getMyChatContents());
-        String ragResult = (customPrompt != null && !customPrompt.isBlank()) ? "" : ragService.findDocument(dto.getMyChatContents());
+        String ragResult = (customPrompt != null && !customPrompt.isBlank()) ? "" : ragService.findDocument(dto.getMyChatContents(), memberKey);
         String systemPrompt = getString(customPrompt, webResults, ragResult);
         String conversationId = dto.getShowChatKey() != null ? dto.getShowChatKey().toString() : null;
         List<Message> history = conversationId != null ? chatMemory.get(conversationId) : List.of();
@@ -146,7 +146,7 @@ public class GeminiService {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }), CompletableFuture.runAsync(() -> saveToVectorStore(ragResult, finalResponse, saveResultResponse.id()))).join();
+        }), CompletableFuture.runAsync(() -> saveToVectorStore(ragResult, finalResponse, saveResultResponse.id(), memberKey))).join();
         return response;
     }
 
@@ -174,7 +174,7 @@ public class GeminiService {
             throw new RuntimeException(e);
         }
         log.info( "saveResultResponse.id{}" ,saveResultResponse.id() );
-        saveToVectorStore(ragResult, textContent, saveResultResponse.id());
+        saveToVectorStore(ragResult, textContent, saveResultResponse.id(), memberKey);
 
         if (!images.isEmpty()) {
             Map<String, Object> result = new LinkedHashMap<>();
@@ -307,7 +307,7 @@ public class GeminiService {
     }
 
     // 벡터 db에 저장 로직
-    private void saveToVectorStore(String ragResult, String llmAnswer, Long id) {
+    private void saveToVectorStore(String ragResult, String llmAnswer, Long id, Long memberKey) {
         log.info("[saveToVectorStore 호출됨] ...");
 
         if (llmAnswer == null || llmAnswer.isBlank()) {
@@ -316,7 +316,7 @@ public class GeminiService {
         }
 
         String context = ragResult == null || ragResult.isBlank() ? llmAnswer : "\n\n[RAG 검색 결과]\n" + ragResult + "\n\n[AI 답변]\n" + llmAnswer;
-        ragService.saveDocument(context, "chat", "대화", id);
+        ragService.saveDocument(context, "chat", "대화", id, memberKey);
     }
 
 

@@ -11,8 +11,10 @@ import com.example.jo_gpt_program.gpt.repository.jpa.MyChatRepository;
 import jakarta.transaction.Transactional;
 import com.example.jo_gpt_program.gpt.config.filter.UserInfoDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Set;
 @Slf4j
@@ -50,6 +52,10 @@ public class ChatMysqlService {
         if (showChat == null) {
             log.warn("ShowChat not found for key: {}, localStorage를 초기화해주세요.", dto.getShowChatKey());
             return null;
+        }
+        // 남의 채팅방에 메시지를 써 넣지 못하게 주인 확인
+        if (showChat.getMembers() == null || !members.getMemberKey().equals(showChat.getMembers().getMemberKey())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
 
         log.debug("showChatTwo={}", showChat);

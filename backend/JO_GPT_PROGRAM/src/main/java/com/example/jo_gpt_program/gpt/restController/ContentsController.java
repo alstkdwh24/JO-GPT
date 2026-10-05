@@ -1,15 +1,13 @@
 package com.example.jo_gpt_program.gpt.restController;
 
 import com.example.entitycom.dto.MessageDTO;
-import com.example.entitycom.entity.gpt.GptChat;
+import com.example.jo_gpt_program.gpt.config.LlmModelPolicy;
 import com.example.jo_gpt_program.gpt.config.filter.UserInfoDto;
 import com.example.jo_gpt_program.gpt.dto.ChatMessageDTO;
 import com.example.jo_gpt_program.gpt.dto.MyChatDTO;
 import com.example.jo_gpt_program.gpt.dto.ShowChatDTO;
 import com.example.jo_gpt_program.gpt.service.*;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -38,10 +35,11 @@ public class ContentsController {
     private final RagService ragService;
     private final ScholarSearchService scholarSearchService;
     private final ChatMysqlService chatMysqlService;
+    private final LlmModelPolicy llmModelPolicy;
 
     // static 메서드 사용 시, 생성자 사용 불가
     public ContentsController(@Value("${spring.llm.key}") String geminiKey,
-                              ShowChatService showChatService, MyAuthService myAuthService, GeminiService geminiService, GoogleApiService googleApiService, RagService ragService, ScholarSearchService scholarSearchService, ChatMysqlService chatMysqlService) {
+                              ShowChatService showChatService, MyAuthService myAuthService, GeminiService geminiService, GoogleApiService googleApiService, RagService ragService, ScholarSearchService scholarSearchService, ChatMysqlService chatMysqlService, LlmModelPolicy llmModelPolicy) {
 
         this.geminiKey = geminiKey;
         this.showChatService = showChatService;
@@ -52,6 +50,7 @@ public class ContentsController {
         this.ragService = ragService;
         this.scholarSearchService = scholarSearchService;
         this.chatMysqlService = chatMysqlService;
+        this.llmModelPolicy = llmModelPolicy;
     }
     // 나의 메시지를 llm에 보내고 db에 저장하는 메서드
     @PostMapping("/myContents")
@@ -83,10 +82,13 @@ public class ContentsController {
     /* Gemini 호출 — Authorization으로 멤버 식별, DB의 활성 프롬프트 자동 적용 */
     @PostMapping("/gptContents")
     public ResponseEntity<String> getGptContents(@RequestBody MyChatDTO dto,
-                                                 @RequestHeader(value = "X-Model", defaultValue = "gemini-2.0-flash") String model) {
+                                                 @RequestHeader(value = "X-Model", required = false) String requestedModel) {
 
 
+        String model = llmModelPolicy.resolve(requestedModel);
         Long memberKey = getMemberKey();
+        // 남의 채팅방 대화기록을 읽거나 AI 응답을 써 넣지 못하게 LLM 호출 전에 주인 확인
+        showChatService.checkOwner(dto.getShowChatKey());
         //  customPrompt를 헤더 대신 body(dto)에서 꺼냄 → 헤더 크기 초과 문제 해결
         String response = geminiService.sendGeminiAI(dto, model, dto.getCustomPrompt(), memberKey);
         return ResponseEntity.ok(response);
@@ -98,7 +100,9 @@ public class ContentsController {
     @PostMapping("/chatRoom/first")
     public ResponseEntity<Map<String, Object>> createChatRoomAndGetResponse(
             @RequestBody MyChatDTO dto,
-            @RequestHeader(value = "X-Model", defaultValue = "gemini-2.0-flash") String model) {
+            @RequestHeader(value = "X-Model", required = false) String requestedModel) {
+
+        String model = llmModelPolicy.resolve(requestedModel);
 
         // 1. 채팅방 생성
         Long showChatKey = showChatService.createChat(dto);
@@ -134,10 +138,8 @@ public class ContentsController {
 
     /* 채팅방 삭제 */
     @DeleteMapping("/chatRoom/{showChatKey}")
-    public ResponseEntity<Void> deleteChatRoom(
-            @RequestHeader(value = "Authorization", required = false) String authHeader,
-            @PathVariable Long showChatKey) {
-        showChatService.deleteChat(authHeader, showChatKey);
+    public ResponseEntity<Void> deleteChatRoom(@PathVariable Long showChatKey) {
+        showChatService.deleteChat(showChatKey);
         return ResponseEntity.ok().build();
     }
 
@@ -162,7 +164,9 @@ public class ContentsController {
     // 학술 검색 + AI 답변
     @PostMapping("/getScholarContents")
     public ResponseEntity<String> postMethodName(@RequestBody MyChatDTO dto,
-                                                 @RequestHeader(value = "X-Model", defaultValue = "gemini-2.0-flash") String model) {
+                                                 @RequestHeader(value = "X-Model", required = false) String requestedModel) {
+        String model = llmModelPolicy.resolve(requestedModel);
+        showChatService.checkOwner(dto.getShowChatKey());
         String response = scholarSearchService.sendWithScholar(dto, model, dto.getCustomPrompt());
         return ResponseEntity.ok(response);
     }
@@ -171,8 +175,10 @@ public class ContentsController {
     @PostMapping("/getRagScholarContents")
     public ResponseEntity<String> getGptRagScholarContents(
             @RequestBody MyChatDTO dto,
-            @RequestHeader(value = "X-Model", defaultValue = "gemini-2.0-flash") String model) {
-        String response = scholarSearchService.sendWithRagAndScholar(dto, model, dto.getCustomPrompt());
+            @RequestHeader(value = "X-Model", required = false) String requestedModel) {
+        String model = llmModelPolicy.resolve(requestedModel);
+        showChatService.checkOwner(dto.getShowChatKey());
+        String response = scholarSearchService.sendWithRagAndScholar(dto, model, dto.getCustomPrompt(), getMemberKey());
         return ResponseEntity.ok(response);
     }
 
@@ -181,35 +187,18 @@ public class ContentsController {
     @PostMapping("/documents/search")
     public ResponseEntity<String> findDocument(@RequestBody Map<String, String> body){
         try {
-            String context = ragService.findDocument(body.get("query"));
+            String context = ragService.findDocument(body.get("query"), getMemberKey());
             return ResponseEntity.ok(context);
         } catch (Exception e) {
             return ResponseEntity.ok("");
         }
     }
 
-    // 채팅방 검색
-    @GetMapping("/searchChatting")
-    public ResponseEntity<String> findShowRoom(MessageDTO dto){
-        List<GptChat> gptChat = showChatService.findShowRoom(dto);
-        return ResponseEntity.ok(gptChat.toString());
+    // 채팅방 검색 — 검색어가 대화 내용 일부라 URL(로그)에 남지 않게 body로 받음
+    @PostMapping("/searchChatting")
+    public ResponseEntity<Set<ShowChatDTO>> searchChatting(@RequestBody Map<String, String> body) {
+        return ResponseEntity.ok(showChatService.searchMyChats(body.get("search")));
     }
 
-    // 크롤링
-    @PostMapping("/crawl")
-    public ResponseEntity<String> crawlUrl(@RequestBody Map<String, String> body) {
-        String url = body.get("url");
-        try {
-            Document doc = Jsoup.connect(url)
-                    .timeout(5000)
-                    .get();
-            String text = doc.body().text();
-            return ResponseEntity.ok(text);
-        } catch (IOException e) {  // ← 여기서 잡아야 해요!
-            log.error("크롤링 실패: {}", e.getMessage());
-            return ResponseEntity.badRequest()
-                    .body("크롤링 실패: " + e.getMessage());
-        }
-    }
 }
 
