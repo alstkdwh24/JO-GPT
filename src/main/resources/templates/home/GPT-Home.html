@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Content Security Policy: recommended for Electron security -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' script-src 'self' https://code.jquery.com">
+    <title>외부 앱 제어 PC 프로그램</title>
+    <link rel="stylesheet" href="/css/GPT-Home.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=add_circle"/>
+    <link rel="stylesheet" href="/css/modelJoin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<!--사이드바 구성-->
+<div class="sideBar">
+    <button class="sideBarImg">
+        <img src="/image/menu.png" alt="이상">
+    </button>
+
+    <button class="sideBarButtonImg">
+        <span class="material-symbols-outlined">
+add_circle
+</span>
+    </button>
+    <button class="sideBarImgTwo">
+        <img src="/image/chatting.png" alt="채팅">
+    </button>
+
+</div>
+<div class="content">
+    <!--탑부분 바-->
+    <div class="topBar">
+        <div class="topBar-left">
+            <h2>JO-GPT</h2>
+        </div>
+        <div class="topBar-middle"></div>
+        <div class="topBar-right">
+            <div class="topBar-rightLeft">
+                <label>
+                    <input type="text">
+                </label>
+            </div>
+            <div class="topBar-rightRight" id="authButtons">
+                <div class="topBar-rightRightLeftButton">
+                    <button class="buttonBlack">무료로 회원가입</button>
+                </div>
+                <div class="topBar-rightRightRightButton">
+                    <button class="buttonWhite">로그인</button>
+                </div>
+
+            </div>
+            <div class="topBar-rightRight" id="userProfile" style="display: none;">
+                <div class="topBar-rightRightRightButton">
+                    <button class="buttonBlacks"  id="logoutButton">로그아웃</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--탑바 코드 끝-->
+    <!--내용 부분 작성 realContent-->
+    <div class="realContent">
+        <div class="realBox">
+            <div class="realBoxFont"> 안녕하세요 <span id="userName"></span>님
+            </div><!--여기 변수 필요함-->
+            <div class="input-wrapper">
+
+                <!--자동으로 크기 조절을 하는 법-->
+                <textarea class="fake-input"
+                          oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+                <div class="search-div">
+                    <button class="search-btn">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                    <div class="search-result">
+                        <select class="select-model" >
+                            <option>챗 GPT4.5</option>
+                            <option>제미나이</option>
+                        </select>
+                        <button class="search-btn search-real">
+
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--모달 회원가입 부분-->
+<div th:replace="/GPT-Login.html :: modelLogin"></div>
+
+<!--회원가입으로 가는 모달 페이지랑 로그인으로 가는 모달 페이지 이동 버튼-->
+<script src="/js/home/GPT-model-button.js"></script>
+
+<!--내용입력하고 보내는 js-->
+<script src="/js/home/textareaJs.js"></script>
+
+<script src="/js/home/gpt-home.js"></script>
+<!--gpt-username.js-->
+<script src="/js/home/gpt-username.js"></script>
+</body>
+</html>

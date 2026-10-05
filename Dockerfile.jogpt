@@ -1,0 +1,28 @@
+# JO_GPT_PROGRAM (GPT 서비스 - 8082 포트)
+FROM eclipse-temurin:17-jdk AS builder
+WORKDIR /workspace
+
+COPY gradlew gradlew
+COPY gradle/ gradle/
+COPY settings.gradle settings.gradle
+
+COPY backend/EntityCom/ backend/EntityCom/
+COPY backend/MembersSecurity/ backend/MembersSecurity/
+COPY backend/JO_GPT_PROGRAM/ backend/JO_GPT_PROGRAM/
+
+# settings.gradle에 포함된 나머지 모듈 - 빌드 불필요하나 Gradle 설정 평가 시 디렉토리 필요
+RUN mkdir -p backend/AgentProgram backend/ProgramLog && \
+    printf 'plugins { id "java" }\n' > backend/AgentProgram/build.gradle && \
+    printf 'plugins { id "java" }\n' > backend/ProgramLog/build.gradle
+
+RUN chmod +x gradlew && ./gradlew :JO_GPT_PROGRAM:bootJar --no-daemon
+
+FROM amazoncorretto:17-alpine-jdk
+# ✅ alpine은 apk 패키지 매니저 사용 (apt-get 아님!)
+RUN apk add --no-cache python3 py3-pip
+# ✅ --break-system-packages로 설치
+RUN pip3 install youtube-transcript-api --break-system-packages
+COPY --from=builder /workspace/backend/JO_GPT_PROGRAM/build/libs/*.jar app.jar
+EXPOSE 8082
+ENTRYPOINT ["java", "-jar", "-Dspring.config.name=jogpt-application", "/app.jar"]
+

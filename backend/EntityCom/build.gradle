@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.13'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'EntityCom'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web' // 수정 후
+
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // 엔티티 공유 모듈이므로 JPA 의존성이 필요할 수 있습니다.
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    // TSID 지원 (Hibernate 버전에 맞춰 최신 버전 권장)
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.9.0'
+
+    // 테스트 의존성 수정
+    // 수정 전: testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    runtimeOnly 'com.mysql:mysql-connector-j'// 수정 후
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // JSON-Smart (JSONObject 사용을 위해 추가)
+    implementation 'net.minidev:json-smart'
+
+    // 기존 의존성들...
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    // 엘라스틱 벡터 db
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

@@ -1,0 +1,512 @@
+/*JO-GPT*/
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-size: 16px;
+
+}
+
+body {
+    background: #F6FAFF;
+    display: flex;
+    flex-direction: row;
+}
+
+.sideBar {
+    width: 4%;
+    min-width: 54px;
+    height: 100vh; /* 화면 전체 높이 */
+    background: #DDEBFF;
+    display: flex;
+    position: relative; /* ⭐ 기준점 */
+    flex-direction: column;
+
+}
+
+.sideBarImg {
+    height: 60px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.sideBarImg img {
+    width: 70%;
+    height: 70%;
+    object-fit: cover;
+    display: block;
+}
+
+.sideBarImgTwo {
+    height: 60px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.sideBarImgTwo > img {
+    background-color: transparent;
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    display: block;
+}
+
+.sideBarButtonImg {
+    background-color: transparent;
+    border: none;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+}
+
+.sideBarButtonImg > span {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1.4;
+    cursor: pointer;
+
+}
+
+.sideBarButton {
+    position: absolute; /* ⭐ sideBar 기준으로 위치 잡음 */
+    top: -226px;
+    left: -90%;
+    transform: translateX(-500%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+}
+
+.sideBarButtonImage {
+    width: 500px;
+    height: 500px;
+}
+
+.content {
+    width: calc(100vw - 54px);
+    background: #F6FAFF;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+/*탑바 부분*/
+.topBar {
+    width: calc(100vw - 54px);
+    background: #F6FAFF;
+    height: 8vh;
+    display: flex;
+}
+
+.topBar-left {
+    height: 100%;
+    width: 10%;
+    min-width: 122px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topBar-left > h2 {
+    font-weight: normal;
+
+}
+
+.topBar-middle {
+    height: 100%;
+    width: 50%;
+}
+
+.topBar-right {
+    height: 100%;
+    width: 40%;
+    min-width: 490px;
+    display: flex;
+}
+
+.topBar-rightLeft {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*input label */
+.topBar-rightLeft > label {
+    width: 98%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*input*/
+.topBar-rightLeft > label > input {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.topBar-rightRight {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+}
+
+.topBar-rightRightLeftButton {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topBar-rightRightRightButton {
+    width: 40%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonWhite {
+
+    width: 70%;
+    height: 100%;
+    font-size: 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.buttonBlack {
+    width: 90%;
+    height: 100%;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    margin-left: 8%;
+}
+
+.buttonBlacks {
+    width: 90%;
+    height: 100%;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    margin-left: 8%;
+}
+
+/*탑바 부분 끝*/
+
+/*realContent 부분 코드*/
+.realContent {
+    width: calc(100vw - 54px);
+    background: #F6FAFF;
+    min-height: 92vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.realBoxFont {
+    font-size: 30px;
+}
+
+
+.realBox {
+    width: 70%;
+
+    min-height: 30%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 80%; /* 반응형이면 width:100%; max-width:260px */
+    min-height: 100px;
+
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.input-wrapper .fake-input {
+    display: block;
+    width: 100%;
+    border: none;
+    height: 70%;
+    min-height: 56px;
+    padding: 12px 12px 0 12px; /* 오른쪽 버튼 공간 */
+    border-radius: 20px;
+    resize: none;
+    overflow-y: hidden; /* ✅ 세로 스크롤 대신 높이로 증가 */
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+}
+.fake-input:focus {
+    outline: none;   /*  검은 테두리 제거 */
+}
+.search-div{
+    min-height: 30%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.search-btn {
+    right: 12px;
+    bottom: 12px; /* ✅ 하단 고정 */
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+
+    display: grid;
+    place-items: center;
+}
+
+.search-real{
+margin-right: 4px}
+
+.search-btn i {
+    color: #888;
+    font-size: 14px;
+}
+/*검색 버튼과 선택*/
+.search-result{
+    width: 24%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/*GPT모델 선택*/
+.select-model{
+    width: 70%;
+    height: 60%;
+    border: none;
+}
+
+.select-model:focus{
+    outline: none;
+}
+/*GPT 모델 선택 끝*/
+
+@media (width < 670px) {
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    html {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        font-size: 16px;
+
+    }
+
+    body {
+        background: #F6FAFF;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sideBar {
+        width: 0;
+        min-width: 0;
+        height: 100vh; /* 화면 전체 높이 */
+        background: #DDEBFF;
+
+    }
+
+    .content {
+        width: calc(100vw - 54px);
+        background: #F6FAFF;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+
+
+    }
+
+    /*탑바 부분*/
+    .topBar {
+        width: calc(100vw - 54px);
+        background: #F6FAFF;
+        height: 8vh;
+        display: flex;
+    }
+
+    .topBar-left {
+        height: 100%;
+        width: 10%;
+        min-width: 122px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .topBar-left > h2 {
+        font-weight: normal;
+
+    }
+
+    .topBar-middle {
+        height: 100%;
+        width: 50%;
+    }
+
+    .topBar-right {
+        height: 100%;
+        width: 40%;
+        min-width: 490px;
+        display: flex;
+    }
+
+    .topBar-rightLeft {
+        height: 100%;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*input label */
+    .topBar-rightLeft > label {
+        width: 98%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /*input*/
+    .topBar-rightLeft > label > input {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+    }
+
+    .topBar-rightRight {
+        height: 100%;
+        width: 50%;
+        display: flex;
+
+
+    }
+
+    .topBar-rightRightLeftButton {
+        width: 0;
+        height: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .topBar-rightRightRightButton {
+        width: 50%;
+        height: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .buttonWhite {
+
+        width: 70%;
+        height: 100%;
+        font-size: 16px;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    .buttonBlack {
+        display: none;
+    }
+
+    /*탑바 부분 끝*/
+    /*realContent 부분 코드*/
+    .realContent {
+        width: 100vw;
+        background: #F6FAFF;
+        height: 92vh;
+        display: flex;
+        justify-content: center;
+        align-items: self-end;
+    }
+
+    .realBoxFont {
+        font-size: 30px;
+    }
+
+    .realBox > label {
+        width: 80%;
+        height: 40%;
+    }
+
+    .realBox > label > input {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+    }
+
+    .realBox {
+        width: 70%;
+        height: 26%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+}
+
+

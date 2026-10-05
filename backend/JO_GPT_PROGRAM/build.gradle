@@ -1,0 +1,105 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.13'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+description = 'JO_GPT_PROGRAM'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// 여기에 ai mavenBom 추가
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:1.1.5"
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+dependencies {
+    // Vertex AI Search 클라이언트
+//    implementation 'org.springframework.ai:spring-ai-starter-model-vertex-ai-gemini'
+
+    implementation 'com.google.cloud:google-cloud-discoveryengine:0.41.0'
+
+    implementation 'org.springframework.ai:spring-ai-starter-model-google-genai'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'      // 데이터베이스 ORM(JPA) 지원
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client' // 구글, 카카오 등 소셜 로그인 기능
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'     // 서버사이드 템플릿 엔진 (HTML 렌더링)
+    implementation 'org.springframework.boot:spring-boot-starter-web'           // 내장 톰캣 포함, 웹 MVC 핵심 기능 (webmvc 대체)
+    implementation 'org.springframework.boot:spring-boot-starter-validation'    // @Valid 등 데이터 유효성 검사
+
+    // 2. 추가 라이브러리 및 유틸리티
+    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'      // Thymeleaf에서 보안(Security) 관련 태그 사용
+    implementation 'org.testng:testng:7.7.0'                                   // 테스트 프레임워크 (필요 시 JUnit과 병행 가능)
+    implementation 'io.hypersistence:hypersistence-utils-hibernate-63:3.9.0'
+    implementation project(':MembersSecurity')
+
+    // 엑셀로 저장하는 의존성
+    implementation 'org.apache.poi:poi-ooxml:5.4.0'
+
+    // 3. Lombok: 반복되는 Getter/Setter 등의 코드를 줄여주는 라이브러리
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'             // 개발 시 자동 재시작 등 편의 기능
+
+    // 4. 데이터베이스 및 보안 (JWT)
+    runtimeOnly 'com.mysql:mysql-connector-j'                                   // MySQL 접속 드라이버
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'                           // JWT 생성 및 검증 API
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'                             // JWT 구현체
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'                          // JWT의 JSON 처리(Jackson) 지원
+
+    // 5. 테스트 의존성 (표준화)
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'      // 통합 테스트 환경 (JUnit, Mockito 등 포함)
+    testImplementation 'org.springframework.security:spring-security-test'
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'com.h2database:h2'// 보안 관련 로직 테스트 지원
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    /*실시간 알림*/
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    // 벡터 스토어 (ChromaDB)
+    implementation 'org.springframework.ai:spring-ai-starter-vector-store-chroma'
+    // HTML을 읽고 파싱하는 라이브러리
+    implementation 'org.jsoup:jsoup:1.17.2'
+
+// Google API
+    implementation 'com.google.api-client:google-api-client:2.2.0'
+    implementation 'com.google.auth:google-auth-library-oauth2-http:1.19.0'
+    implementation 'com.google.apis:google-api-services-gmail:v1-rev20220404-2.0.0'
+    implementation 'com.google.apis:google-api-services-calendar:v3-rev20220715-2.0.0'
+    implementation 'com.google.apis:google-api-services-sheets:v4-rev20220927-2.0.0'
+    implementation 'com.google.apis:google-api-services-docs:v1-rev20220609-2.0.0'
+    implementation 'com.google.apis:google-api-services-drive:v3-rev20220815-2.0.0'
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev20230816-2.0.0'
+
+    implementation project(':EntityCom')
+    // 메일 첨부파일 (MIME)
+    implementation 'com.sun.mail:jakarta.mail:2.0.1'
+
+    // Excel 백업용 Apache POI
+    implementation 'org.apache.poi:poi-ooxml:5.2.5'
+}
+tasks.named('test') {
+    useJUnitPlatform()
+}
+test {
+    jvmArgs '-Xmx2048m', '-Xms512m'
+}

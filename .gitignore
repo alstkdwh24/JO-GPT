@@ -1,0 +1,114 @@
+
+
+
+
+
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+## Docker ###폴더 관련
+docker/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+*.zip
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE settings
+.idea/
+.vscode/
+*.swp
+
+client_secret*.json
+# Build results
+/build/
+/out/
+
+# Gradle
+.gradle/
+/bin/
+!gradle-wrapper.jar
+# 래퍼 실행을 위해 실행 파일은 포함 권장
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build outputs
+
+.eslintcache
+
+# Environment variables (가장 중요!)
+
+.env.local
+.env
+
+# Flutter/Dart related
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+
+# Android/iOS build artifacts
+
+*.ipa
+*.apk
+*.properties
+*.yml
+*.json
+*.yaml
+*.venv
+*.env
+*.log
+
+# 대용량 파일 제외
+*.tar
+*.tar.gz
+*.tar.bz2
+
+
+
+
+# 로컬 데이터·작업 부산물 (git 추적 제외)
+chroma_data/
+chroma_db/
+identifier.sqlite
+fix_real.py
+restore_real.py
+compilation_errors.txt
+gradle_*.txt
+Query.sql
+aqua-7b/
+spring-petclinic/
+local-modules.gradle
