@@ -1,0 +1,370 @@
+/* GPT 답변 등장 애니메이션 */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gptContents {
+    animation: fadeSlideIn 0.3s ease-out;
+}
+
+/* 스트리밍 중 커서 */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.streaming-cursor::after {
+    content: '▋';
+    display: inline-block;
+    margin-left: 2px;
+    color: #3A6BF5;
+    animation: blink 0.7s step-end infinite;
+    vertical-align: text-bottom;
+    font-size: 0.9em;
+}
+
+/*나의 질문 컨테이너*/
+#myContent-myContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+
+    width: 100%;
+    justify-content: flex-end;
+
+}
+
+/*나의 질문*/
+#realMyContent {
+    background-color: #DDEBFF;
+    border-radius: 5px;
+    padding: 1rem;
+    font-family: 'D2Coding', sans-serif;
+    line-height: 1.6;
+    /* 폰트 크기의 1.6배 간격 (가장 추천하는 가독성 범위: 1.5 ~ 1.8) */
+    color: #101D42;
+
+}
+
+/*gemini 답변 컨테이너*/
+#geminiContent-geminiContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+    /* 단락 아래에 20px만큼 공간을 만듭니다 */
+
+}
+
+#realGeminiContent {
+    border-radius: 5px;
+    padding: 1rem;
+    font-family: 'D2Coding', sans-serif;
+    line-height: 1.6;
+    /* 폰트 크기의 1.6배 간격 (가장 추천하는 가독성 범위: 1.5 ~ 1.8) */
+    color: #0F172A;
+    /* 기존 white → 다크 네이비 그레이로 변경 */
+}
+
+/* Gemini 스타일 로딩 */
+.gemini-loader {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.8rem 1rem;
+}
+
+.gemini-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg,
+            #3A6BF5 0%,
+            #7BA7FF 40%,
+            transparent 65%,
+            transparent 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 4px), #fff calc(100% - 3.5px));
+    animation: gemini-spin 1s linear infinite;
+}
+
+.gemini-star {
+    color: #5B8DF5;
+    font-size: 18px;
+    line-height: 1;
+    animation: gemini-pulse 1.4s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 4px rgba(58, 107, 245, 0.35));
+}
+
+@keyframes gemini-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gemini-pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.5;
+        transform: scale(0.8);
+    }
+}
+
+/* Markdown 렌더링 스타일 */
+#realGeminiContent h1,
+#realGeminiContent h2,
+#realGeminiContent h3 {
+    margin: 0.5rem 0;
+    font-weight: 600;
+}
+
+#realGeminiContent h1 {
+    font-size: 1.4rem;
+}
+
+#realGeminiContent h2 {
+    font-size: 1.2rem;
+}
+
+#realGeminiContent h3 {
+    font-size: 1.05rem;
+}
+
+#realGeminiContent p {
+    margin: 0.4rem 0;
+    line-height: 1.6;
+}
+
+#realGeminiContent ul,
+#realGeminiContent ol {
+    padding-left: 1.5rem;
+    margin: 0.4rem 0;
+}
+
+#realGeminiContent li {
+    margin: 0.2rem 0;
+    line-height: 1.5;
+}
+
+/* 인라인 코드 */
+#realGeminiContent code {
+    background-color: #f0f0f0;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    color: #d63384;
+}
+
+/* 코드 블록 */
+#realGeminiContent pre {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 0.6rem 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+#realGeminiContent pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+}
+
+/* 테이블 */
+#realGeminiContent table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+#realGeminiContent th,
+#realGeminiContent td {
+    border: 1px solid #ccc;
+    padding: 0.5rem 0.8rem;
+    text-align: left;
+}
+
+#realGeminiContent th {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+/* 인용문 */
+#realGeminiContent blockquote {
+    border-left: 4px solid #a78bfa;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #f9f5ff;
+    color: #555;
+}
+
+/* 굵은 글씨 */
+#realGeminiContent strong {
+    font-weight: 700;
+}
+
+/* 구분선 */
+#realGeminiContent hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 0.8rem 0;
+}
+
+/*채팅 폰트 */
+.my-gemini-talk {
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-y: scroll;
+    /* 1. Firefox: 표준 속성 (너비를 none으로 설정) */
+    scrollbar-width: none;
+
+    /* 2. IE 및 구형 Edge: 특수 속성 */
+    -ms-overflow-style: none;
+    overflow-anchor: none; /* 새 내용 추가 시 자동 스크롤 방지 */
+}
+
+/* 메시지 전송 후 채팅 영역 전환 */
+.my-gemini-talk-active {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 80%;
+    width: 44rem;
+    gap: 1rem;
+    overflow-y: auto;
+    overflow-anchor: none; /* 새 내용 추가 시 자동 스크롤 방지 */
+}
+
+/* AI 생성 이미지 */
+.gpt-image-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.gpt-generated-image {
+    max-width: 100%;
+    max-height: 480px;
+    border-radius: 8px;
+    object-fit: contain;
+    border: 1px solid #D0DFFF;
+    box-shadow: 0 2px 8px rgba(58, 107, 245, 0.1);
+}
+
+.attached-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 4px 0;
+}
+
+.attached-chip {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #EEF4FF;
+    border: 1px solid #D0DFFF;
+    border-radius: 8px;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+.attached-chip .thumb {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.attached-chip button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.left-tools {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem 1rem;
+}
+
+
+/* ===== 스마트폰 반응형 (768px 이하) ===== */
+@media (max-width: 768px) {
+
+    /* 채팅 메시지 영역 */
+    .my-gemini-talk-active {
+        width: 100%;
+        height: auto;
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        /* iOS 모멘텀 스크롤 */
+        padding: 0 1rem;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    /* 내 질문 말풍선 */
+    #realMyContent {
+        max-width: 75vw;
+        word-break: break-word;
+    }
+
+    /* AI 답변 말풍선 */
+    #realGeminiContent {
+        max-width: 85vw;
+        word-break: break-word;
+        font-size: 0.95rem;
+    }
+
+    /* 코드 블록 */
+    #realGeminiContent pre {
+        max-width: calc(85vw - 2rem);
+        overflow-x: auto;
+        font-size: 0.8rem;
+    }
+
+    /* 테이블 */
+    #realGeminiContent table {
+        font-size: 0.85rem;
+    }
+}

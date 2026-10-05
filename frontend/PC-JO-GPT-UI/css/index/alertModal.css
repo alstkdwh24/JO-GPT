@@ -1,0 +1,45 @@
+/* 모달 메시지 */
+.tpl-toast-alert {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    display: none;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    display: none;
+    background: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* 처음에는 숨김 */
+}
+
+
+
+/* 모달 표시 */
+.tpl-toast-alert.show {
+    display: flex;
+
+}
+
+/* 진짜 모달 내용 */
+.toast-alert {
+
+    width: 40rem;
+    height: 36rem;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 모달 헤더 */
+.toast-alert-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+}

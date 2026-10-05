@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-anchor: none; /* GPT 스트리밍 중 자동 스크롤 방지 */
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/* 모바일 루트 레이아웃 */
+@media (max-width: 768px) {
+    #root {
+        flex-direction: column;
+    }
+
+    /* 버튼 탭 하이라이트 제거 (Android) */
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+}

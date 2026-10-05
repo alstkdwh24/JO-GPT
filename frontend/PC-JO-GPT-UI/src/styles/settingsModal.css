@@ -1,0 +1,135 @@
+/* 설정 모달 오버레이 */
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 설정 모달 박스 */
+.settings-modal {
+    width: 480px;
+    max-height: 80vh;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 헤더 */
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.settings-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #101D42;
+}
+
+.settings-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #888;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.15s;
+}
+
+.settings-close-btn:hover {
+    background: #f0f0f0;
+}
+
+/* 본문 */
+.settings-body {
+    overflow-y: auto;
+    flex: 1;
+    padding: 0.5rem 0;
+}
+
+/* 섹션 */
+.settings-section {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.settings-section:last-child {
+    border-bottom: none;
+}
+
+.settings-section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0 1.5rem 0.4rem;
+}
+
+/* 항목 */
+.settings-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    min-height: 48px;
+    transition: background 0.15s;
+}
+
+.settings-item:hover {
+    background: #f8faff;
+}
+
+.settings-item-name {
+    font-size: 0.95rem;
+    color: #222;
+}
+
+.settings-item-value {
+    font-size: 0.9rem;
+    color: #888;
+}
+
+/* ===== 모바일: 바텀 시트 슬라이드 업 ===== */
+@media (max-width: 768px) {
+
+    .settings-overlay {
+        align-items: flex-end;
+    }
+
+    .settings-modal {
+        width: 100%;
+        max-height: 70vh;
+        border-radius: 20px 20px 0 0;
+        padding-bottom: env(safe-area-inset-bottom);
+        animation: settingsSlideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .settings-item {
+        min-height: 52px;
+    }
+}
+
+@keyframes settingsSlideUp {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+}

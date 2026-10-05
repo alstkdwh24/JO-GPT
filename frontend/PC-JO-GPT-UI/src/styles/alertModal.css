@@ -1,0 +1,129 @@
+/* 모달 메시지 */
+.tpl-toast-alert {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    display: none;
+    top: 50%;
+    left: 50%;
+    z-index: 9999;
+    display: none;
+    background: rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* 처음에는 숨김 */
+}
+
+
+
+/* 모달 표시 */
+.tpl-toast-alert.show {
+    display: flex;
+
+}
+
+/* 진짜 모달 내용 */
+.toast-alert {
+
+    width: 40rem;
+    height: 36rem;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 모달 헤더 */
+.toast-alert-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+/* 알림 헤더 닫기 버튼 */
+.toast-alert-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.toast-alert-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #888;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.toast-alert-close:hover {
+    background: #f0f0f0;
+    color: #333;
+}
+
+/* 알림 없을 때 */
+.toast-alert-empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* 알림 아이템 */
+.toast-alert-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #f0f0f0;
+    transition: background 0.2s;
+}
+
+.toast-alert-item.clickable {
+    cursor: pointer;
+}
+
+.toast-alert-item.clickable:hover {
+    background: #f5f8ff;
+    border-color: #3A6BF5;
+}
+
+.toast-alert-item-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.toast-alert-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.toast-alert-item-message {
+    font-size: 14px;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.toast-alert-item-time {
+    font-size: 12px;
+    color: #aaa;
+    margin-top: 4px;
+}
+
+.toast-alert-item-arrow {
+    font-size: 20px;
+    color: #3A6BF5;
+    font-weight: bold;
+    flex-shrink: 0;
+}

@@ -1,0 +1,739 @@
+/*JO-GPT*/
+@font-face {
+    font-family: 'Noto Sans KR';
+    src: url('/fonts/TmoneyRoundWindExtraBold.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    background: #F6FAFF;
+}
+
+/*사이트바*/
+.sideBar {
+    width: 4rem;
+    height: 100%;
+    /*
+    height: 100vh; !* 화면 전체 높이 *!
+    */
+    background: #DDEBFF;
+    display: flex;
+    position: relative;
+    /* ⭐ 기준점 */
+    flex-direction: column;
+
+}
+
+/*사이드 버튼 공통요소*/
+.same-font {
+    font-size: 24px;
+    color: #555;
+}
+
+
+.sideBarImg {
+    width: 4rem;
+    height: 3rem;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.sideBarImgActive {
+    width: 20rem;
+    height: 3rem;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+
+.sideBarImgTwo {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+}
+
+.sideBarImgTwo>img {
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+}
+
+.sideBarButtonImg {
+    background-color: transparent;
+    border: none;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+}
+
+.sideBarButtonImgSpot {
+    background-color: transparent;
+    border: none;
+    width: 60px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+
+    align-items: center;
+}
+
+.sideBarButtonImg>span {
+    width: 50px;
+    height: 50px;
+    font-size: 32px;
+    /* scale: 1.4 대신 font-size 사용 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    overflow: hidden;
+    /* 텍스트가 삐져나가지 않도록 설정 */
+
+}
+
+.sideBar-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+}
+
+.sideBar-bottom {
+    margin-top: auto;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sideBarButton {
+    position: absolute;
+    /* ⭐ sideBar 기준으로 위치 잡음 */
+    top: -226px;
+    left: -90%;
+    transform: translateX(-500%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+}
+
+.sideBarButtonImage {
+    width: 500px;
+    height: 500px;
+}
+
+.content {
+    width: calc(100% - 4rem);
+    background: #F6FAFF;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+/*탑바 부분*/
+.topBar {
+    width: calc(100vw - 4rem);
+    background: #F6FAFF;
+    height: 8vh;
+    display: flex;
+}
+
+.topBar-left {
+    height: 100%;
+    width: 11rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.topBar-left--narrow {
+    width: auto;
+    justify-content: flex-start;
+    padding-left: 0.2rem;
+}
+
+.topBar-left>h2 {
+    padding: 1.5rem;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.topbar-settings-back {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: bold;
+    font-family: inherit;
+    color: #000;
+    padding: 0.5rem 0.2rem;
+}
+
+.topbar-settings-back i {
+    font-size: 1rem;
+}
+
+.topBar-middle {
+    height: 100%;
+    width: 50%;
+}
+
+.topBar-right {
+    height: 100%;
+    flex: 1;
+    /* 남은 공간 모두 차지 */
+    display: flex;
+    justify-content: flex-end;
+    /* 오른쪽 정렬 */
+    align-items: center;
+    padding-right: 2%;
+    /* 오른쪽 여백 */
+}
+
+.topBar-rightLeft {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*input label */
+.topBar-rightLeft>label {
+    width: 98%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*input*/
+.topBar-rightLeft>label>input {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.topBar-rightRight {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    /* 버튼 사이 간격 */
+}
+
+.topBar-rightRightLeftButton {
+    width: 60%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.topBar-rightRightRightButton {
+    width: 40%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonWhite {
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.buttonWhite:hover {
+    background-color: #f0f0f0;
+}
+
+.buttonBlack {
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.buttonBlack:hover {
+    opacity: 0.8;
+}
+
+.buttonBlacks {
+    width: 90%;
+    height: 100%;
+    font-size: 16px;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    margin-left: 8%;
+}
+
+/*탑바 부분 끝*/
+
+/*realContent 부분 코드*/
+.realContent {
+    width: calc(100vw - 4rem);
+    background: #F6FAFF;
+    height: calc(100% - 8vh);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.realContent.chat-active {
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+}
+
+.realBoxFont {
+    font-size: 30px;
+}
+
+
+.realBox {
+    width: 44rem;
+
+    min-height: 20%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    /* 반응형이면 width:100%; max-width:260px */
+    min-height: 100px;
+
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.input-wrapper .fake-input {
+    display: block;
+    width: 100%;
+    border: none;
+    height: 70%;
+    min-height: 56px;
+    padding: 12px 12px 0 12px;
+    /* 오른쪽 버튼 공간 */
+    border-radius: 20px;
+    resize: none;
+    overflow-y: hidden;
+    /* ✅ 세로 스크롤 대신 높이로 증가 */
+    overflow-x: hidden;
+    box-sizing: border-box;
+    font-size: 16px;
+    font-family: 'Cafe24Ssurround', sans-serif;
+    /* ← 여기서 적용 */
+
+
+}
+
+.fake-input:focus {
+    outline: none;
+    /*  검은 테두리 제거 */
+}
+
+/* 새 답변 스크롤 버튼 */
+.scroll-down-btn {
+    position: fixed;
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3A6BF5;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(58, 107, 245, 0.4);
+    z-index: 100;
+    animation: fadeInUp 0.3s ease;
+}
+
+.scroll-down-btn:hover {
+    background-color: #2a5be0;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+.search-div {
+    min-height: 30%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.left-tools {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.middle-tools {
+    width: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-btn {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.search-btn i {
+    color: #3A6BF5;
+    font-size: 22px;
+
+}
+
+/* 전송 버튼: 채운 원형 스타일 */
+.search-real {
+    background: white;
+    margin-right: 8px;
+    transition: opacity 0.15s, background 0.15s;
+}
+
+.search-real:hover {
+    background: #2554d8;
+}
+
+.search-real-hide {
+    width: 2rem;
+    height: 36px;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.search-real-hide i {
+    color: #3A6BF5;
+    font-size: 20px;
+    position: relative;
+}
+
+/*검색 버튼과 선택*/
+.search-result {
+    width: 14.6rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+
+}
+
+/*GPT모델 선택 래퍼 (커스텀 화살표용) */
+.select-model-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* 커스텀 드롭다운 화살표 */
+.select-model-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 5px solid #3A6BF5;
+    pointer-events: none;
+}
+
+/*GPT모델 선택*/
+.select-model {
+    appearance: none;
+    -webkit-appearance: none;
+    background: #EEF4FF;
+    border: 1.5px solid #D0DFFF;
+    border-radius: 20px;
+    padding: 6px 28px 6px 12px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #3A6BF5;
+    font-weight: 500;
+    cursor: pointer;
+    width: auto;
+    height: auto;
+    min-width: 120px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.select-model:hover {
+    border-color: #3A6BF5;
+}
+
+.select-model:focus {
+    outline: none;
+    border-color: #3A6BF5;
+    box-shadow: 0 0 0 3px rgba(58, 107, 245, 0.12);
+}
+
+/*GPT 모델 선택 끝*/
+
+
+/*폰트 적용 x*/
+.fontFamily {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+}
+
+/*폰트적용 x*/
+#fontFamily {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+}
+
+/* sideBarText 없애는 것 */
+.sideBarText {
+    display: none;
+}
+
+/* 토글 발생 여부에 따라 아이콘 위치 조정이 되는 것을 최소화 */
+.icon-controller {
+    width: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ===== 스마트폰 반응형 (768px 이하) ===== */
+@media (max-width: 768px) {
+
+    /* ── 하단 네비게이션 바 ──
+       env(safe-area-inset-bottom): iPhone 홈바 영역이 겹치지 않도록 패딩 추가 */
+    .sideBar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: calc(56px + env(safe-area-inset-bottom));
+        padding-bottom: env(safe-area-inset-bottom);
+        flex-direction: row;
+        z-index: 100;
+        border-top: 1px solid #D0DFFF;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .sideBar-top {
+        flex-direction: row;
+        width: 100%;
+        height: 56px;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .sideBar-bottom {
+        display: none;
+    }
+
+    /* 터치 영역 최소 44px 보장 */
+    .sideBarImg {
+        width: auto;
+        min-height: 44px;
+        height: 56px;
+        flex: 1;
+        justify-content: center;
+    }
+
+    /* 하단 네비 아이콘 width 고정 해제 */
+    .sideBar i {
+        width: auto;
+        min-width: 24px;
+    }
+
+    /* 모바일에서 햄버거 아이콘 → 설정 아이콘 */
+    .sideBar .fa-bars::before {
+        content: "\f013";
+    }
+
+    /* ── 콘텐츠 영역 ──
+       100dvh: 모바일 브라우저 주소창 높이 변화를 반영하는 동적 뷰포트 */
+    .content {
+        width: 100%;
+        height: calc(100vh - 56px - env(safe-area-inset-bottom));
+        height: calc(100dvh - 56px - env(safe-area-inset-bottom));
+    }
+
+    /* ── 탑바 ── */
+    .topBar {
+        width: 100%;
+        height: 52px;
+        flex-shrink: 0;
+    }
+
+    .topBar-left {
+        width: auto;
+        min-width: fit-content;
+    }
+
+    .topBar-left>h2 {
+        font-size: 1.3rem;
+        padding: 0 1rem;
+    }
+
+    /* 빈 중간 영역 숨김 → 버튼 공간 확보 */
+    .topBar-middle {
+        display: none;
+    }
+
+    .topBar-right {
+        padding-right: 1rem;
+    }
+
+    .topBar-rightRight {
+        gap: 8px;
+    }
+
+    .buttonWhite,
+    .buttonBlack {
+        padding: 6px 14px;
+        font-size: 13px;
+        white-space: nowrap;
+        min-height: 36px;
+    }
+
+    /* ── 메인 콘텐츠 ── */
+    .realContent {
+        width: 100%;
+        height: auto;
+        flex: 1;
+        min-height: 0;
+        padding: 0;
+    }
+
+    .realContent.chat-active {
+        padding-top: 0.5rem;
+        padding-bottom: 1rem;
+        overflow: hidden;
+    }
+
+    /* ── 입력창 영역 ── */
+    .realBox {
+        width: calc(100% - 2rem);
+        min-height: auto;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    /* textarea: 16px 미만이면 iOS에서 자동 확대됨 → 16px 유지 */
+    .fake-input {
+        font-size: 16px;
+    }
+
+    /* 환영 메시지 */
+    .realBoxFont {
+        font-size: 20px;
+        text-align: center;
+        padding: 0 1rem;
+    }
+
+    /* 모델 선택 영역 */
+    .search-result {
+        gap: 4px;
+        align-items: center;
+    }
+
+    /* select 자체를 작게: iOS select는 네이티브 피커를 열어 zoom 없음 */
+    .select-model-wrapper::after {
+        right: 7px;
+        border-left-width: 3px;
+        border-right-width: 3px;
+        border-top-width: 4px;
+    }
+
+    .select-model {
+        font-size: 12px;
+        min-width: unset;
+        width: auto;
+        padding: 5px 20px 5px 9px;
+    }
+}

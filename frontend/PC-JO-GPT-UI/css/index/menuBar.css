@@ -1,0 +1,112 @@
+/* 토글 버튼으로 활성화되는 css */
+.active {
+    display: flex;
+    position: relative;
+    /* ⭐ 기준점 */
+    flex-direction: column;
+    z-index: 1;
+    width: 16rem;
+    height: 100vh;
+    background: #DDEBFF;
+}
+
+
+/* contentsActive 토글 */
+.contentActive {
+    width: calc(100vw - 16rem);
+    background: #F6FAFF;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+
+}
+
+/* topBarActive 토글 */
+.topBarActive {
+    width: calc(100vw - 16rem);
+    background: #F6FAFF;
+    height: 8vh;
+    display: flex;
+
+}
+
+/* realContentActive 토글 */
+.realContentActive {
+    width: calc(100vw - 16rem);
+    background: #F6FAFF;
+    min-height: calc(100vh - 71px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* sideBarTopActive 토글 */
+.sideBarTopActive {
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* sideBarBottomActive 토글 */
+.sideBarImgActive {
+    width: 16rem;
+    height: 3rem;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+}
+
+/* sideBarImgActive 토글을 열면 나오는 css*/
+
+.sideBarImgActive>.sideButton {
+    width: 20rem;
+    height: 3rem;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: transparent;
+}
+
+.sideBarImgTexts {
+    width: calc(100% - 60px);
+}
+
+/* sideBarImgActive sideButton sideBarText 토글을 열면 나오는 css */
+.sideBarImgActive>.sideButton>.sideBarText {
+    display: flex;
+}
+
+/* 아이콘 크기sideBarImg */
+i {
+    width: 60px;
+}
+
+/* sideBar-bottom 토글  */
+.sideBar-bottomActive {
+    width: 16rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.sideBar-bottomActive>.sideBarImgActive>.sideBarText {
+    display: flex;
+}

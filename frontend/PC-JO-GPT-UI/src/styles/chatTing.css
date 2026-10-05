@@ -1,0 +1,208 @@
+.chatting-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+    width: 60rem;
+    height: 40.6rem;
+    gap: 1.2rem;
+}
+
+#title-chatting {
+    border-radius: 2rem;
+
+
+    height: 5.6rem;
+}
+
+/*채팅 아이콘*/
+#chatting-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1rem;
+    /* 반지름을 50%로 설정 */
+    object-fit: cover;
+    /* 이미지가 찌그러지지 않게 채움 */
+}
+
+/*채팅 컨테이너*/
+#chatting-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 8.4rem;
+}
+
+#real-chatting-container {}
+
+/*채팅 검색 컨테이너*/
+#search-chatting {
+    min-height: 3rem;
+    border: 1px solid #D0DFFF;
+    box-shadow: 0px 0px 10px rgba(160, 190, 240, 0.2);
+    border-radius: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+
+
+}
+
+/*채팅 검색 입력창*/
+#search-input {
+    display: flex;
+    align-items: center;
+    height: 3rem;
+    border: 1px solid #D0DFFF;
+    box-shadow: 0px 0px 10px rgba(160, 190, 240, 0.2);
+    border-radius: 1rem;
+    width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+/*채팅 아이콘 css*/
+#search-icon {
+    scale: 1.2;
+    background: linear-gradient(135deg, #A8C8FF, #3A6BF5);
+    /* 그라데이션 배경 설정 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 1rem;
+}
+
+/*채팅 검색 input css*/
+#search-chatting-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    resize: none;
+    overflow: hidden;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    min-height: 1.5em;
+}
+
+/*채팅 목록 List css*/
+#chatting-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.chatting-list-container {
+    height: 5.4rem;
+
+    border: 1px solid #D0DFFF;
+    border-radius: 1rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+
+}
+
+.chatting-list-container:hover {
+    background-color: #f0f5ff;
+}
+
+.chatting-delete-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 4px 6px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.15s, color 0.15s;
+}
+
+.chatting-list-container:hover .chatting-delete-btn {
+    opacity: 1;
+}
+
+.chatting-delete-btn:hover {
+    color: #e74c3c;
+}
+
+/*채팅 리스트 안에 이미지*/
+.chatting-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+    object-fit: cover;
+    border-radius: 1rem;
+
+}
+
+/*채팅 리스트 제목*/
+.chatting-list-word {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.1rem;
+    height: 4.2rem;
+
+}
+
+/*마지막 채팅 시간을 넣기 위한 css*/
+.chatting-list-time {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    height: 1.2rem;
+
+}
+
+.chatting-list-time-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.2rem;
+
+
+}
+
+.chatting-list-time-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.2rem;
+    scale: 1.2;
+    padding-top: 0.08rem;
+    width: 0.8rem;
+
+}
+
+/* ===== 모바일 반응형 (768px 이하) ===== */
+@media (max-width: 768px) {
+
+    .chatting-container {
+        width: calc(100% - 2rem);
+        margin: 1rem auto 0;
+        height: auto;
+        min-height: 0;
+    }
+
+    /* 채팅 목록 스크롤 */
+    #chatting-list {
+        max-height: calc(100vh - 56px - 52px - 8rem);
+        overflow-y: auto;
+    }
+
+}
